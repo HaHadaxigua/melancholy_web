@@ -6,12 +6,3 @@ Vite 是一个由原生 ES 模块驱动的 Web 开发构建工具，支持模块
 1. `npm install vite-app melancholy`
 2. `yarn` 打包项目
 3. `yarn dev` 运行服务
-
-
-
-
-import {ref} from "vue"
-import {loginUser, rules} from "../utils/login";
-import LoginForm from "../components/LoginForm.vue";
-import {registerUser, registerRules} from "../utils/register"
-import RegisterForm from "../components/RegisterForm.vue";

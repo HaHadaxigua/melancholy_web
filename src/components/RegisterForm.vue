@@ -6,9 +6,9 @@
       label-width="100px"
       class="registerForm sign-up-form"
   >
-    <el-form-item label="用户名" prop="name">
+    <el-form-item label="用户名" prop="username">
       <el-input
-          v-model="registerUser.name"
+          v-model="registerUser.username"
           placeholder="Enter UserName..."
       ></el-input>
     </el-form-item>
@@ -21,13 +21,6 @@
     <el-form-item label="密码" prop="password">
       <el-input
           v-model="registerUser.password"
-          type="password"
-          placeholder="Enter Password..."
-      ></el-input>
-    </el-form-item>
-    <el-form-item label="确认密码" prop="password2">
-      <el-input
-          v-model="registerUser.password2"
           type="password"
           placeholder="Enter Password..."
       ></el-input>
@@ -47,7 +40,8 @@
 
 <script lang="ts">
 import {getCurrentInstance} from "vue";
-// import axios from 'axios' // 仅限在当前组件使用
+import {useRouter} from "vue-router";
+
 export default {
   props: {
     registerUser: {
@@ -59,14 +53,28 @@ export default {
       required: true,
     },
   },
-  setup() {
+  setup(props: any) {
     // @ts-ignore
     const {ctx} = getCurrentInstance();
+    const router = useRouter();
 
     const handleRegister = (formName: string) => {
       ctx.$refs[formName].validate((valid: boolean) => {
         if (valid) {
-          alert("submit!");
+          ctx.$axios.post("api/v1/auth/register", props.registerUser).then((rsp: any) => {
+            if (rsp.status == 200) {
+              ctx.$message({
+                message: "注册成功",
+                type: "success",
+              })
+              router.push("/");
+            } else {
+              ctx.$message({
+                message: "Error:" + rsp.data.message,
+                type: "warning",
+              })
+            }
+          })
         } else {
           console.log("error submit!!");
           return false;

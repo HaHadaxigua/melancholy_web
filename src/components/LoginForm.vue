@@ -25,7 +25,8 @@
           @click="handleLogin('loginForm')"
           type="primary"
           class="submit-btn"
-      >提交</el-button
+      >提交
+      </el-button
       >
     </el-form-item>
 
@@ -37,7 +38,10 @@
 </template>
 
 <script lang="ts">
-import { ref, getCurrentInstance } from "vue";
+import {ref, getCurrentInstance} from "vue";
+import {useRouter} from "vue-router";
+
+
 export default {
   props: {
     loginUser: {
@@ -49,23 +53,49 @@ export default {
       required: true,
     },
   },
-  setup() {
+  setup(props: any) {
     // @ts-ignore
-    const { ctx } = getCurrentInstance();
+    const {ctx} = getCurrentInstance();
+    const router = useRouter();
+
 
     // 触发登录方法
     const handleLogin = (formName: string) => {
       ctx.$refs[formName].validate((valid: boolean) => {
         if (valid) {
-          alert("submit!");
+          ctx.$axios
+              .post(
+                  "api/v1/auth/login",
+                  props.loginUser
+              )
+              .then((rsp: any) => {
+                if (rsp.status == 200 && rsp.data.code == 6) {
+                  ctx.$message({
+                    message: "登录成功",
+                    type: "success",
+                  })
+                  localStorage.setItem("token", rsp.data.data)
+                  console.log(localStorage.getItem("token"))
+                  router.push("/");
+                } else {
+                  ctx.$message({
+                    message: "Error:" + rsp.data.message,
+                    type: "warning",
+                  })
+                }
+              });
+          return true
         } else {
-          console.log("error submit!!");
-          return false;
+          ctx.$message({
+            message: "校验未通过",
+            type: "warning",
+          })
+          return false
         }
       });
     };
 
-    return { handleLogin };
+    return {handleLogin};
   },
 };
 </script>
@@ -82,11 +112,13 @@ export default {
 .submit-btn {
   width: 100%;
 }
+
 .tiparea {
   text-align: right;
   font-size: 12px;
   color: #333;
 }
+
 .tiparea p a {
   color: #409eff;
 }
