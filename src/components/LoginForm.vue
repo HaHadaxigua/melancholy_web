@@ -24,10 +24,8 @@
       <el-button
           @click="handleLogin('loginForm')"
           type="primary"
-          class="submit-btn"
-      >提交
-      </el-button
-      >
+          class="submit-btn">提交
+      </el-button>
     </el-form-item>
 
     <!-- 找回密码 -->
