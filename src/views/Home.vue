@@ -2,6 +2,28 @@
   <div>
     <v-header></v-header>
     <v-sidebar></v-sidebar>
+    <div class="content-box">
+      <div class="content">
+        <el-container>
+          <el-main>
+            <div style="margin-top: 20px">
+              <el-button @click="toggleSelection()">取消选择</el-button>
+            </div>
+            <el-table ref="multipleTable"
+                      :data="fileList"
+                      @selection-change="handleSelectionChange"
+                      tooltip-effect="dark">
+              <el-table-column type="selection" prop="name" label="文件名" width="120">
+              </el-table-column>
+              <el-table-column prop="date" label="修改时间" width="140">
+              </el-table-column>
+              <el-table-column prop="size" label="大小">
+              </el-table-column>
+            </el-table>
+          </el-main>
+        </el-container>
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -15,16 +37,50 @@ export default {
     vSidebar
   },
   data() {
-    const item = {
+    const fileListItem = {
+      name: 'Download',
       date: '2016-05-02',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1518 弄'
+      size: '5.6G'
     };
+    const multipleSelection = []
     return {
-      tableData: Array(20).fill(item)
+      fileList: Array(10).fill(fileListItem),
+      multipleSelection
+    }
+  },
+  methods: {
+    toggleSelection(rows) {
+      if (rows) {
+        rows.forEach(row => {
+          this.$refs.multipleTable.toggleRowSelection(row);
+        });
+      } else {
+        this.$refs.multipleTable.clearSelection();
+      }
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
     }
   }
 };
 </script>
 <style scoped>
+.content-box {
+  position: absolute;
+  left: 250px;
+  right: 0;
+  top: 70px;
+  bottom: 0;
+  padding-bottom: 30px;
+  -webkit-transition: left .3s ease-in-out;
+  transition: left .3s ease-in-out;
+}
+
+.content {
+  width: auto;
+  height: 100%;
+  padding: 10px;
+  overflow-y: scroll;
+  box-sizing: border-box;
+}
 </style>>

@@ -1,5 +1,7 @@
 let state = {
     username: 'admin',
-    taskList: []
+    taskList: [],
+    tagsList: [],
+    collapse: false,
 }
 export default state
