@@ -73,7 +73,8 @@ export default {
                     type: "success",
                   })
                   localStorage.setItem("token", rsp.data.data)
-                  console.log(localStorage.getItem("token"))
+                  // todo 设置用户名
+                  // localStorage.setItem("username", rsp.data.data)
                   router.push("/");
                 } else {
                   ctx.$message({

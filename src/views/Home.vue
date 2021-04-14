@@ -4,18 +4,28 @@
     <v-sidebar></v-sidebar>
     <div class="content-box">
       <div class="content">
+
         <el-container>
           <el-main>
-            <div style="margin-top: 20px">
+            <!--    主要表单区域        -->
+            <el-row>
+              <el-button type="primary" round>上传</el-button>
+              <el-button type="primary" round>新建文件夹</el-button>
+              <el-button type="primary" round>新建在线文档</el-button>
+            </el-row>
+            <div style="margin-top: 10px">
               <el-button @click="toggleSelection()">取消选择</el-button>
             </div>
             <el-table ref="multipleTable"
                       :data="fileList"
                       @selection-change="handleSelectionChange"
-                      tooltip-effect="dark">
-              <el-table-column type="selection" prop="name" label="文件名" width="120">
+                      tooltip-effect="dark"
+                      style="width: 100%">
+              <el-table-column type="selection" width="120">
               </el-table-column>
-              <el-table-column prop="date" label="修改时间" width="140">
+              <el-table-column prop="name" label="文件名" width="120">
+              </el-table-column>
+              <el-table-column prop="date" label="修改时间" width="120">
               </el-table-column>
               <el-table-column prop="size" label="大小">
               </el-table-column>
@@ -42,9 +52,13 @@ export default {
       date: '2016-05-02',
       size: '5.6G'
     };
+    const fileList = [
+      fileListItem,
+    ]
     const multipleSelection = []
     return {
-      fileList: Array(10).fill(fileListItem),
+      fileList,
+      // fileList: Array(10).fill(fileListItem),
       multipleSelection
     }
   },
