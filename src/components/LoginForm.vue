@@ -72,9 +72,9 @@ export default {
                     message: "登录成功",
                     type: "success",
                   })
-                  localStorage.setItem("token", rsp.data.data)
-                  // todo 设置用户名
-                  // localStorage.setItem("username", rsp.data.data)
+                  localStorage.setItem("token", rsp.data.token)
+                  localStorage.setItem("userInfo", rsp.data.user)
+                  localStorage.setItem("username", rsp.data.user.username)
                   router.push("/");
                 } else {
                   ctx.$message({
