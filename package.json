@@ -6,6 +6,7 @@
     "build": "vite build"
   },
   "dependencies": {
+    "path-to-regexp": "^6.2.0",
     "axios": "^0.21.1",
     "element-plus": "^1.0.2-beta.32",
     "vue": "^3.0.4",
