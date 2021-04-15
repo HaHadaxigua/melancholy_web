@@ -63,7 +63,7 @@ export default {
                 {
                     icon: "el-icon-lx-cascades",
                     index: "table",
-                    title: "图片"
+                    title: "基础表格"
                 },
                 {
                     icon: "el-icon-lx-copy",

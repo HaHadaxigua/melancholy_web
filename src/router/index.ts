@@ -4,7 +4,17 @@ const routes = [
     {
         path: '/',
         name: 'index',
-        component: () => import('../views/Home.vue')
+        component: () => import('../views/Home.vue'),
+        children: [
+            {
+                path: "/table",
+                name: "basetable",
+                meta: {
+                    title: '表格'
+                },
+                component: () => import ("../views/BaseTable.vue")
+            }
+        ]
     },
     {
         path: '/login',
